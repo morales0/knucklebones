@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "description": "Knucklebones socket.io server",
   "main": "index.ts",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
     "start": "node build/index.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q build/index.js\""
+    "dev": "concurrently \"npx tsc --watch --preserveWatchOutput\" \"nodemon -q build/index.js\""
   },
   "author": "",
   "license": "ISC",
