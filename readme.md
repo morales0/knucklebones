@@ -8,9 +8,6 @@
   * [Mantine](https://mantine.dev/)
   * [Socket Client](https://socket.io/)
 
-
-
-
 ### Backend
 * The backend app is in `apps/server`
   * [Node Express](https://expressjs.com/)
@@ -37,10 +34,11 @@ git clone ... // Clone the repository
 cd knucklebones // Move into it
 yarn // Install all dependencies
 ```
-
+### Running the app
 ```bash
-cd apps/frontend // Move into frontend
-yarn dev // Run app
+yarn dev // Lerna will run both app and server
+// Check console output for urls to both app and server!
+// Making any edits in those dirs will update the corresponding app :)
 ```
 
 
