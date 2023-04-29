@@ -21,8 +21,10 @@
 
 ### References
 * [graceless.city](https://medium.com/@nikpundik/create-a-multiplayer-game-with-react-and-socket-io-eef36f06ba7d)
+ * https://github.com/nikpundik/graceless-city
 * [React socket game article](https://medium.com/swlh/socket-io-games-the-right-way-using-nodejs-and-react-not-a-chat-app-part-1-e7a49d2f3f51)
-* 
+ * https://github.com/sauravhiremath/fifa-api
+ * https://github.com/sauravhiremath/fifa
 
 ## Development
 ### Environment
