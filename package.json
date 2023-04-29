@@ -4,6 +4,10 @@
   "workspaces": [
     "apps/*"
   ],
+  "scripts": {
+    "lint": "lerna run lint --stream",
+    "start": "lerna run start --stream"
+  },
   "devDependencies": {
     "lerna": "^6.6.1"
   }
