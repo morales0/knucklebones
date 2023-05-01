@@ -5,13 +5,13 @@ import "./App.css";
 const socket = io("localhost:3000");
 
 function App() {
-  const [messages, setMessages] = useState<string[]>([])
+  const [messages, setMessages] = useState<string[]>([]);
 
   useEffect(() => {
     // When server connects with us, log and send message
     socket.on("connect", () => {
       console.log("conncected", socket);
-      socket.emit("message", `Hi, I'm ${socket.id}`)
+      socket.emit("message", `Hi, I'm ${socket.id}`);
     });
 
     // When server disconnects with us, log
@@ -21,8 +21,8 @@ function App() {
 
     // When server sends us a "message" event, add to screen
     socket.on("message", (msg: string) => {
-      setMessages((prev) => [...prev, msg])
-    })
+      setMessages((prev) => [...prev, msg]);
+    });
 
     return () => {
       socket.off("connect");
@@ -31,9 +31,13 @@ function App() {
     };
   }, []);
 
-  return <div>
-    {messages.map((msg, i) => <div key={`message-${i}`}>{msg}</div>)}
-  </div>;
+  return (
+    <div>
+      {messages.map((msg, i) => (
+        <div key={`message-${i}`}>{msg}</div>
+      ))}
+    </div>
+  );
 }
 
 export default App;

@@ -8,7 +8,8 @@
     "lint": "lerna run lint --stream",
     "build": "lerna run build --stream",
     "start": "lerna run start --stream",
-    "dev": "lerna run dev --stream"
+    "dev": "lerna run dev --stream",
+    "format": "lerna run format --stream"
   },
   "devDependencies": {
     "lerna": "^6.6.1"
