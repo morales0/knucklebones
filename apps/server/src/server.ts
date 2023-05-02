@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { type Request, type Response } from "express";
 import app from "./app";
 import http from "http";
 import { Server } from "socket.io";
@@ -22,7 +22,7 @@ io.on("connection", (socket) => {
   });
 
   // When client sends "message" event, emit to all other connections
-  socket.on("message", (msg) => {
+  socket.on("message", (msg: string) => {
     io.emit("message", `${socket.id}: ${msg}`);
   });
 });
