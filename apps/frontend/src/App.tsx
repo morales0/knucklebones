@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import "./App.css";
+import Grid from "./components/grid";
+import Player from "./components/player";
 
-const socket = io("localhost:3000");
+// const socket = io("localhost:3000");
 
 function App() {
-  const [messages, setMessages] = useState<string[]>([]);
+  // const [messages, setMessages] = useState<string[]>([]);
 
+  /*
   useEffect(() => {
     // When server connects with us, log and send message
     socket.on("connect", () => {
@@ -30,12 +33,16 @@ function App() {
       socket.off("message");
     };
   }, []);
+  */
 
   return (
-    <div>
-      {messages.map((msg, i) => (
-        <div key={`message-${i}`}>{msg}</div>
-      ))}
+    <div className="app">
+      <Player name="You" points={0} />
+      <div>
+        <Grid cells={[]} />
+        <Grid cells={[]} />
+      </div>
+      <Player name="Opponent" points={0} />
     </div>
   );
 }
