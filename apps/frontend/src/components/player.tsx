@@ -1,3 +1,5 @@
+import "../styles/player.css";
+
 type Props = {
   name: string;
   points: number;

@@ -1,8 +1,12 @@
-import { useEffect, useState } from "react";
-import { io } from "socket.io-client";
-import "./App.css";
 import Grid from "./components/grid";
 import Player from "./components/player";
+import "./styles/app.css";
+
+const emptyGrid: number[][] = [
+  [0, 2, 5],
+  [1, 3, 4],
+  [2, 6, 4],
+];
 
 // const socket = io("localhost:3000");
 
@@ -38,9 +42,9 @@ function App() {
   return (
     <div className="app">
       <Player name="You" points={0} />
-      <div>
-        <Grid cells={[]} />
-        <Grid cells={[]} />
+      <div className="game">
+        <Grid cells={emptyGrid} scorePos="bottom" />
+        <Grid cells={emptyGrid} scorePos="top" />
       </div>
       <Player name="Opponent" points={0} />
     </div>

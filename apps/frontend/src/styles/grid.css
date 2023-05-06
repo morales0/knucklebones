@@ -1,0 +1,62 @@
+.grid {
+  /* height: 250px;
+  width: 250px; */
+
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+
+}
+
+.grid.score_top .score {
+  top: -35px;
+}
+
+.grid.score_bottom .score {
+  bottom: -35px;
+}
+
+.grid.score_top .row {
+  flex-direction: column-reverse;
+}
+
+
+
+.score {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+
+.cells {
+  display: flex;
+  gap: 3px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.row {
+  display: flex;
+  flex-flow: column nowrap;
+  background-color: rgb(60, 56, 56);
+
+  gap: .75rem;
+  padding: .5rem;
+}
+
+.cell {
+  display: grid;
+  place-items: center;
+
+  border-radius: 4px;
+  width: 3.5rem;
+  height: 3.5rem;
+  /* margin: 1rem .5rem; */
+}
+
+.dice {
+  background-color: rgb(100, 112, 117);
+
+}
