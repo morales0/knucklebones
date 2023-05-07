@@ -21,9 +21,9 @@
   flex-flow: column wrap-reverse;
   align-items: center;
   justify-content: space-around;
-  gap: 90px;
+  gap: .75rem;
   overflow: auto;
-  padding: 1rem;
+  padding: .5rem;
 }
 
 /* game height overflow */

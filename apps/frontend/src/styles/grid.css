@@ -5,15 +5,16 @@
   position: relative;
   display: flex;
   flex-flow: column nowrap;
+  margin: 40px .75rem;
 
 }
 
 .grid.score_top .score {
-  top: -35px;
+  top: -1.75rem;
 }
 
 .grid.score_bottom .score {
-  bottom: -35px;
+  bottom: -1.75rem;
 }
 
 .grid.score_top .row {

@@ -7,13 +7,13 @@ type Props = {
 };
 
 const Grid = ({ cells, scorePos }: Props) => {
-  console.log(cells);
-
   const Score = () => (
     <div className="score">
-      <div>0</div>
-      <div>0</div>
-      <div>0</div>
+      {cells.map((row, i) => (
+        <div key={`score-${scorePos}-${i}`}>
+          {row.reduce<number>((sum, cell) => cell + sum, 0)}
+        </div>
+      ))}
     </div>
   );
 
@@ -22,7 +22,7 @@ const Grid = ({ cells, scorePos }: Props) => {
       {scorePos === "top" && <Score />}
 
       <div className="cells">
-        {cells.map((row, i) => (
+        {cells.map((_, i) => (
           <div className="row">
             {[...new Array(3)].map((_, j) =>
               cells[i][j] ? (
