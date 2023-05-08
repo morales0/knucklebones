@@ -6,7 +6,7 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 18px;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -25,11 +25,11 @@
   }
 }
 
-@media screen and (max-width: 900px) {
+/* @media screen and (max-width: 900px) {
   :root {
     font-size: 14px;
   }
-}
+} */
 
 @media screen and (max-width: 700px) {
   :root {
@@ -39,7 +39,13 @@
 
 @media screen and (max-height: 500px) {
   :root {
-    font-size: 10px;
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-height: 400px) {
+  :root {
+    font-size: 12px;
   }
 }
 

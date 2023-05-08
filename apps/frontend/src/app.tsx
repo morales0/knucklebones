@@ -44,6 +44,7 @@ function App() {
       <Player name="You" points={0} />
       <div className="game">
         <Grid cells={emptyGrid} scorePos="bottom" />
+        <span className="vs">VS</span>
         <Grid cells={emptyGrid} scorePos="top" />
       </div>
       <Player name="Opponent" points={0} />
