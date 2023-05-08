@@ -1,20 +1,21 @@
 .grid {
   /* height: 250px;
   width: 250px; */
+  /* border: 1px solid olivedrab; */
 
   position: relative;
   display: flex;
   flex-flow: column nowrap;
-  margin: 40px .75rem;
+  margin: 30px .75rem;
 
 }
 
 .grid.score_top .score {
-  top: -1.75rem;
+  top: -2rem;
 }
 
 .grid.score_bottom .score {
-  bottom: -1.75rem;
+  bottom: -2rem;
 }
 
 .grid.score_top .row {
@@ -52,8 +53,8 @@
   place-items: center;
 
   border-radius: 4px;
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 4rem;
+  height: 4rem;
   /* margin: 1rem .5rem; */
 }
 
