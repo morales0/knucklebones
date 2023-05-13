@@ -41,13 +41,13 @@ function App() {
 
   return (
     <div className="app">
-      <Player name="You" points={0} />
+      <Player name="You" score={0} />
       <div className="game">
         <Grid cells={emptyGrid} scorePos="bottom" />
         <span className="vs">VS</span>
         <Grid cells={emptyGrid} scorePos="top" />
       </div>
-      <Player name="Opponent" points={0} />
+      <Player name="Opponent" score={0} opponent />
     </div>
   );
 }

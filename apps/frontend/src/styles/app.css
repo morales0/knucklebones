@@ -20,7 +20,7 @@
 }
 
 .game {
-  flex: 2 1 auto;
+  flex: 5 1 auto;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -86,3 +86,21 @@
     transform: rotate(-90deg);
   }
 }
+
+/* Color Scheme */
+/*
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+
+  a:hover {
+    color: #747bff;
+  }
+
+  button {
+    background-color: #f9f9f9;
+  }
+}
+*/

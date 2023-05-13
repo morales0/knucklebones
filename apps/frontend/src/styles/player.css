@@ -3,6 +3,50 @@
   /* min-height: 100px; */
   flex: 1 1 auto;
 
-  padding: 1rem;
-  background-color: rgb(76, 64, 76);
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-items: center;
+
+
+  padding: .25rem;
+  /* background-color: rgb(219, 196, 219); */
+}
+
+.player.opponent {
+  flex-direction: column-reverse;
+}
+
+/* When game flips to vertical, make score board vertical as well */
+@media screen and (max-width: 1100px) {
+  .player {
+    flex-flow: row nowrap;
+  }
+
+  .player.opponent {
+    flex-flow: row-reverse nowrap;
+  }
+}
+
+.scoreBoard {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.scoreBoard h3 {
+  margin: 0;
+}
+
+.rollSpace {
+  display: grid;
+  place-items: center;
+  background-color: #354e63;
+  /* width: 200px;
+  height: 110px; */
+  padding: 1rem 3rem;
+  /* border: 10px solid #1d2e3d; */
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, .15);
+  border-radius: 5px;
 }
