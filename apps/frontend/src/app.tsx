@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Grid from "./components/grid";
 import Player from "./components/player";
 import "./styles/app.css";
@@ -7,13 +8,42 @@ const emptyGrid: number[][] = [
   [1, 3, 4],
   [2, 6, 4],
 ];
-
-// const socket = io("localhost:3000");
+const sumArray = (array: number[]) =>
+  array.reduce<number>((acc, curr) => acc + curr, 0);
 
 function App() {
-  // const [messages, setMessages] = useState<string[]>([]);
+  const [username, setUsername] = useState<string>("You");
+  const [userGrid, setUserGrid] = useState<number[][]>([[], [], []]);
+  const [opponentGrid, setOpponentGrid] = useState<number[][]>([[], [], []]);
 
-  /*
+  return (
+    <div className="app">
+      <Player
+        name={username}
+        updateName={(value) => setUsername(value)}
+        score={sumArray(userGrid.map((row) => sumArray(row)))}
+      />
+      <div className="game">
+        <Grid cells={userGrid} scorePos="bottom" />
+        <span className="vs">VS</span>
+        <Grid cells={opponentGrid} scorePos="top" />
+      </div>
+      <Player
+        name="Opponent"
+        updateName={(value) => setUsername(value)}
+        score={sumArray(opponentGrid.map((row) => sumArray(row)))}
+        opponent
+      />
+    </div>
+  );
+}
+
+export default App;
+
+// const socket = io("localhost:3000");
+// const [messages, setMessages] = useState<string[]>([]);
+
+/*
   useEffect(() => {
     // When server connects with us, log and send message
     socket.on("connect", () => {
@@ -38,33 +68,3 @@ function App() {
     };
   }, []);
   */
-
-  return (
-    <div className="app">
-      <Player
-        name="You"
-        score={emptyGrid.reduce<number>(
-          (acc, curr) =>
-            acc + curr.reduce<number>((acc2, curr2) => acc2 + curr2, 0),
-          0
-        )}
-      />
-      <div className="game">
-        <Grid cells={emptyGrid} scorePos="bottom" />
-        <span className="vs">VS</span>
-        <Grid cells={emptyGrid} scorePos="top" />
-      </div>
-      <Player
-        name="Opponent"
-        score={emptyGrid.reduce<number>(
-          (acc, curr) =>
-            acc + curr.reduce<number>((acc2, curr2) => acc2 + curr2, 0),
-          0
-        )}
-        opponent
-      />
-    </div>
-  );
-}
-
-export default App;

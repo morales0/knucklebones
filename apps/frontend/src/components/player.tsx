@@ -9,10 +9,25 @@ const RollSpace = () => {
   );
 };
 
-const ScoreBoard = ({ name, score }: { name: string; score: number }) => {
+const ScoreBoard = ({
+  name,
+  score,
+  updateName,
+}: {
+  name: string;
+  score: number;
+  updateName: (value: string) => void;
+}) => {
   return (
     <div className="scoreBoard">
+      {}
       <h1>{name}</h1>
+      <input
+        className="playerName"
+        type="text"
+        value={name}
+        onChange={(e) => updateName(e.target.value)}
+      />
       <h3>{score}</h3>
     </div>
   );
@@ -20,14 +35,27 @@ const ScoreBoard = ({ name, score }: { name: string; score: number }) => {
 
 type Props = {
   name: string;
+  updateName: (value: string) => void;
   score: number;
   opponent?: boolean;
 };
 
-const Player = ({ name, score, opponent = false }: Props) => {
+const Player = ({ name, updateName, score, opponent = false }: Props) => {
   return (
     <div className={`player ${opponent ? "opponent" : ""}`}>
-      <ScoreBoard name={name} score={score} />
+      <div className="scoreBoard">
+        {opponent ? (
+          <h1>{name}</h1>
+        ) : (
+          <input
+            className="playerName"
+            type="text"
+            value={name}
+            onChange={(e) => updateName(e.target.value)}
+          />
+        )}
+        <h3>{score}</h3>
+      </div>
       <RollSpace />
     </div>
   );
