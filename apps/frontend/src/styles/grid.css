@@ -1,13 +1,7 @@
 .grid {
-  /* height: 250px;
-  width: 250px; */
-  /* border: 1px solid olivedrab; */
-
   position: relative;
   display: flex;
   flex-flow: column nowrap;
-  /* margin: 30px .75rem; */
-
 }
 
 .grid.score_top .score {
@@ -21,8 +15,6 @@
 .grid.score_top .row {
   flex-direction: column-reverse;
 }
-
-
 
 .score {
   position: absolute;
@@ -55,5 +47,4 @@
   border-radius: 4px;
   width: 4rem;
   height: 4rem;
-  /* margin: 1rem .5rem; */
 }

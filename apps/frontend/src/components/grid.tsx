@@ -19,8 +19,6 @@ const Grid = ({ cells, scorePos }: Props) => {
 
   return (
     <div className={`grid score_${scorePos}`}>
-      {scorePos === "top" && <Score />}
-
       <div className="cells">
         {cells.map((_, i) => (
           <div className="row">
@@ -34,8 +32,7 @@ const Grid = ({ cells, scorePos }: Props) => {
           </div>
         ))}
       </div>
-
-      {scorePos === "bottom" && <Score />}
+      <Score />
     </div>
   );
 };
