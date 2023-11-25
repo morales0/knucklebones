@@ -39,11 +39,22 @@
 
   gap: .75rem;
   padding: .5rem;
+
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  transition: border-color 200ms ease-in-out;
+}
+
+.row:hover {
+  border: 2px solid #9c9c9c;
 }
 
 .cell {
   display: grid;
   place-items: center;
+
+  background-color: rgb(43, 39, 39);
 
   border-radius: 4px;
   width: 4rem;

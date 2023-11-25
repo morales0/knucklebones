@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Grid from "./components/grid";
 import Player from "./components/player";
 import "./styles/app.css";
@@ -13,8 +13,37 @@ const sumArray = (array: number[]) =>
 
 function App() {
   const [username, setUsername] = useState<string>("You");
+  const [userDice, setUserDice] = useState<number | undefined>(undefined);
+  const [oppDice, setOppDice] = useState<number | undefined>(undefined);
   const [userGrid, setUserGrid] = useState<number[][]>([[], [], []]);
   const [opponentGrid, setOpponentGrid] = useState<number[][]>([[], [], []]);
+
+  // Function that adds a dice to a row
+  const addToRow = (row: number) => {
+    console.log("adding to row", row);
+    // If the user has not selected a dice, return
+    if (userDice === undefined) return;
+    // If the row is full, return
+    if (userGrid[row].length === 3) return;
+    // Add the dice to the row
+    setUserGrid((prev) => {
+      const newGrid = [...prev];
+      newGrid[row] = [...newGrid[row], userDice];
+      return newGrid;
+    });
+    // Reset the selected dice
+    setUserDice(undefined);
+  };
+
+  useEffect(() => {
+    // When the component mounts, set the opponent's dice
+    setUserDice(Math.floor(Math.random() * 6) + 1);
+  });
+
+  // When the user's dice changes, set the opponent's dice
+  useEffect(() => {
+    setOppDice(Math.floor(Math.random() * 6) + 1);
+  }, [userDice]);
 
   return (
     <div className="app">
@@ -22,17 +51,19 @@ function App() {
         name={username}
         updateName={(value) => setUsername(value)}
         score={sumArray(userGrid.map((row) => sumArray(row)))}
+        dice={userDice}
       />
       <div className="game">
-        <Grid cells={userGrid} scorePos="bottom" />
+        <Grid cells={opponentGrid} scorePos="top" addToRow={addToRow} />
         <span className="vs">VS</span>
-        <Grid cells={opponentGrid} scorePos="top" />
+        <Grid cells={userGrid} scorePos="bottom" addToRow={addToRow} />
       </div>
       <Player
         name="Opponent"
         updateName={(value) => setUsername(value)}
         score={sumArray(opponentGrid.map((row) => sumArray(row)))}
         opponent
+        dice={oppDice}
       />
     </div>
   );

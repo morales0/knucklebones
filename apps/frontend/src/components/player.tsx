@@ -1,10 +1,14 @@
 import "../styles/player.css";
 import Dice from "./dice";
 
-const RollSpace = () => {
+type RollSpaceProps = {
+  value?: number;
+};
+
+const RollSpace = ({ value }: RollSpaceProps) => {
   return (
     <div className="rollSpace">
-      <Dice value={4} />
+      {value ? <Dice value={value} /> : <div className="rollSpace__empty" />}
     </div>
   );
 };
@@ -38,9 +42,10 @@ type Props = {
   updateName: (value: string) => void;
   score: number;
   opponent?: boolean;
+  dice?: number;
 };
 
-const Player = ({ name, updateName, score, opponent = false }: Props) => {
+const Player = ({ name, updateName, score, opponent = false, dice }: Props) => {
   return (
     <div className={`player ${opponent ? "opponent" : ""}`}>
       <div className="scoreBoard">
@@ -56,7 +61,7 @@ const Player = ({ name, updateName, score, opponent = false }: Props) => {
         )}
         <h3>{score}</h3>
       </div>
-      <RollSpace />
+      <RollSpace value={dice} />
     </div>
   );
 };
