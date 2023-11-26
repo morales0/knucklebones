@@ -13,13 +13,16 @@ const sumArray = (array: number[]) =>
 
 function App() {
   const [username, setUsername] = useState<string>("You");
+  const [turn, setTurn] = useState<"user" | "opponent">("user");
   const [userDice, setUserDice] = useState<number | undefined>(undefined);
   const [oppDice, setOppDice] = useState<number | undefined>(undefined);
   const [userGrid, setUserGrid] = useState<number[][]>([[], [], []]);
   const [opponentGrid, setOpponentGrid] = useState<number[][]>([[], [], []]);
 
+  const usersTurn = userDice !== undefined;
+
   // Function that adds a dice to a row
-  const addToRow = (row: number) => {
+  const addToUserRow = (row: number) => {
     console.log("adding to row", row);
     // If the user has not selected a dice, return
     if (userDice === undefined) return;
@@ -33,17 +36,54 @@ function App() {
     });
     // Reset the selected dice
     setUserDice(undefined);
+    setTurn("opponent");
   };
 
-  useEffect(() => {
-    // When the component mounts, set the opponent's dice
-    setUserDice(Math.floor(Math.random() * 6) + 1);
-  });
+  const addToOpponentRow = (row: number) => {
+    console.log("adding to row", row);
+    // If the user has not selected a dice, return
+    if (oppDice === undefined) return;
+    // If the row is full, return
+    if (opponentGrid[row].length === 3) return;
+    // Add the dice to the row
+    setOpponentGrid((prev) => {
+      const newGrid = [...prev];
+      newGrid[row] = [...newGrid[row], oppDice];
+      return newGrid;
+    });
+    // Reset the selected dice
+    setOppDice(undefined);
+    setTurn("user");
+  };
 
-  // When the user's dice changes, set the opponent's dice
+  // Set die when turn changes
   useEffect(() => {
-    setOppDice(Math.floor(Math.random() * 6) + 1);
-  }, [userDice]);
+    if (turn === "user") setUserDice(Math.floor(Math.random() * 6) + 1);
+    if (turn === "opponent") {
+      const newOppDice = Math.floor(Math.random() * 6) + 1;
+      setOppDice(newOppDice);
+      // After 1-2 seconds, add the dice to a random valid row
+      const randomTimeout = Math.floor(Math.random() * 1000) + 1000;
+      setTimeout(() => {
+        const validRows = opponentGrid.reduce<number[]>(
+          (rows, row, index) => (row.length < 3 ? [...rows, index] : rows),
+          []
+        );
+
+        if (validRows.length > 0) {
+          const randomRowIndex = Math.floor(Math.random() * validRows.length);
+          const randomRow = validRows[randomRowIndex];
+          setOpponentGrid((prev) => {
+            const newGrid = [...prev];
+            newGrid[randomRow] = [...newGrid[randomRow], newOppDice];
+            return newGrid;
+          });
+        }
+        setOppDice(undefined);
+        setTurn("user");
+      }, randomTimeout);
+    }
+  }, [turn]);
 
   return (
     <div className="app">
@@ -54,9 +94,13 @@ function App() {
         dice={userDice}
       />
       <div className="game">
-        <Grid cells={opponentGrid} scorePos="top" addToRow={addToRow} />
+        <Grid
+          cells={opponentGrid}
+          scorePos="bottom"
+          addToRow={addToOpponentRow}
+        />
         <span className="vs">VS</span>
-        <Grid cells={userGrid} scorePos="bottom" addToRow={addToRow} />
+        <Grid cells={userGrid} scorePos="top" addToRow={addToUserRow} />
       </div>
       <Player
         name="Opponent"

@@ -29,8 +29,8 @@ const Grid = ({ cells, scorePos, addToRow }: Props) => {
         {cells.map((_, i) => (
           <div className="row" onClick={() => handleRowSelect(i)}>
             {[...new Array(3)].map((_, j) =>
-              cells[i][j] ? (
-                <Dice value={cells[i][j]} />
+              cells[i][2 - j] ? (
+                <Dice value={cells[i][2 - j]} />
               ) : (
                 <div className="cell" />
               )
