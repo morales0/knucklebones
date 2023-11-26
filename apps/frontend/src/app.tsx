@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import Grid from "./components/grid";
 import Player from "./components/player";
-import "./styles/app.css";
+import classes from "@/styles/app.module.css";
+import clsx from "clsx";
+import Dice from "./components/dice";
 
 const emptyGrid: number[][] = [
   [0, 2, 5],
@@ -63,7 +65,7 @@ function App() {
       const newOppDice = Math.floor(Math.random() * 6) + 1;
       setOppDice(newOppDice);
       // After 1-2 seconds, add the dice to a random valid row
-      const randomTimeout = Math.floor(Math.random() * 1000) + 1000;
+      const randomTimeout = (Math.floor(Math.random() * 1000) * 3) / 4 + 750;
       setTimeout(() => {
         const validRows = opponentGrid.reduce<number[]>(
           (rows, row, index) => (row.length < 3 ? [...rows, index] : rows),
@@ -86,8 +88,36 @@ function App() {
   }, [turn]);
 
   return (
-    <div className="app">
-      <Player
+    <div className={classes.app}>
+      <div className={clsx(classes.opponent, classes.player)}>
+        <div className={classes.rollArea}>
+          {oppDice && <Dice value={oppDice} />}
+        </div>
+        <div>
+          <div className={classes.name}>Opponent</div>
+          <div className={classes.score}>{22}</div>
+        </div>
+      </div>
+      <div className={classes.grid}>
+        <Grid
+          cells={opponentGrid}
+          scorePos="bottom"
+          addToRow={addToOpponentRow}
+        />
+        <span className="vs">VS</span>
+        <Grid cells={userGrid} scorePos="top" addToRow={addToUserRow} />
+      </div>
+      <div className={clsx(classes.player, classes.user)}>
+        <div>
+          <div className={classes.name}>Player</div>
+          <div className={classes.score}>{222}</div>
+        </div>
+        <div className={classes.rollArea}>
+          {userDice && <Dice value={userDice} />}
+        </div>
+      </div>
+
+      {/* <Player
         name={username}
         updateName={(value) => setUsername(value)}
         score={sumArray(userGrid.map((row) => sumArray(row)))}
@@ -108,7 +138,7 @@ function App() {
         score={sumArray(opponentGrid.map((row) => sumArray(row)))}
         opponent
         dice={oppDice}
-      />
+      /> */}
     </div>
   );
 }

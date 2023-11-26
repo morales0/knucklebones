@@ -1,15 +1,70 @@
-#root {
-  height: 100%;
-}
-
 .app {
   height: 100%;
   width: 100%;
 
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 15% auto 15%;
+  grid-template-areas:
+    "opponent"
+    "game"
+    "user";
+
+  /* display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  padding: 1rem; */
+
+}
+
+.player {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;
-  padding: 1rem;
+  align-items: center;
+  padding: .75rem;
+
+  & .name {
+    font-size: 2.25rem;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+
+  & .score {
+    display: grid;
+    place-items: center;
+    font-size: 1.2rem;
+    text-transform: capitalize;
+  }
+
+  & .rollArea {
+    display: grid;
+    place-items: center;
+    padding: .5rem;
+    border: 1px solid rgb(185, 185, 185);
+    border-radius: 3px;
+    width: 8rem;
+    height: 90%;
+
+    /* background: linear-gradient(90deg, rgb(10, 74, 129) 0%, rgb(7, 63, 67) 100%); */
+  }
+}
+
+.opponent {
+  grid-area: opponent;
+  border-bottom: 1px solid rgb(185, 185, 185);
+}
+
+.user {
+  grid-area: user;
+  border-top: 1px solid rgb(185, 185, 185);
+}
+
+.grid {
+  display: grid;
+  place-items: center;
+  overflow: auto;
+  padding: 1rem .5rem
 }
 
 /* flip players vertical on smaller screens */
