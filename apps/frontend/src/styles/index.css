@@ -21,7 +21,7 @@
 
 @media screen and (max-width: 1300px) {
   :root {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 
@@ -31,7 +31,7 @@
   }
 } */
 
-@media screen and (max-width: 700px) {
+/* @media screen and (max-width: 700px) {
   :root {
     font-size: 12px;
   }
@@ -53,7 +53,7 @@
   :root {
     font-size: 12px;
   }
-}
+} */
 
 a {
   font-weight: 500;
@@ -71,7 +71,7 @@ html {
 
 body {
   margin: 0;
-  min-width: 320px;
+  /* min-width: 320px; */
   /* min-height: 100vh; */
   height: 100%;
 }
@@ -94,12 +94,13 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
-  cursor: pointer;
   transition: border-color 0.25s;
-}
+  cursor: pointer;
 
-button:hover {
-  border-color: #646cff;
+  &:disabled {
+    /* opacity: 0.5; */
+    cursor: not-allowed;
+  }
 }
 
 button:focus,

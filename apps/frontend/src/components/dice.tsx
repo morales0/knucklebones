@@ -1,14 +1,17 @@
-import "../styles/dice.css";
+import classes from "../styles/dice.module.css";
+import cx from "clsx";
 
-type Props = {
+type DiceProps = {
   value: number;
+  className?: string;
+  "data-stack"?: number;
 };
 
-const Dice = ({ value }: Props) => {
+const Dice = ({ value, className, ...rest }: DiceProps) => {
   return (
-    <div className={`cell dice dice_${value}`}>
+    <div className={cx(className, classes.dice)} data-value={value} {...rest}>
       {[...new Array(value)].map((_, i) => (
-        <div key={i} className="dot" />
+        <div key={`dice-${i}`} className={classes.dot} />
       ))}
     </div>
   );

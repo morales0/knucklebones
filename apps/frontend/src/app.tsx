@@ -1,31 +1,28 @@
-import { useEffect, useState } from "react";
-import Grid from "./components/grid";
-import Player from "./components/player";
 import classes from "@/styles/app.module.css";
 import clsx from "clsx";
+import { useEffect, useState } from "react";
 import Dice from "./components/dice";
-
-const emptyGrid: number[][] = [
-  [0, 2, 5],
-  [1, 3, 4],
-  [2, 6, 4],
-];
-const sumArray = (array: number[]) =>
-  array.reduce<number>((acc, curr) => acc + curr, 0);
+import Grid from "./components/grid";
+import { calculateScore, findStacks } from "./functions";
 
 function App() {
   const [username, setUsername] = useState<string>("You");
   const [turn, setTurn] = useState<"user" | "opponent">("user");
+  const [gameState, setGameState] = useState<"playing" | "gameover">("playing");
+  const [winner, setWinner] = useState<
+    "user" | "opponent" | "draw" | undefined
+  >("draw");
   const [userDice, setUserDice] = useState<number | undefined>(undefined);
   const [oppDice, setOppDice] = useState<number | undefined>(undefined);
   const [userGrid, setUserGrid] = useState<number[][]>([[], [], []]);
   const [opponentGrid, setOpponentGrid] = useState<number[][]>([[], [], []]);
 
-  const usersTurn = userDice !== undefined;
+  const userScore = calculateScore(userGrid, userGrid.map(findStacks));
+  const oppScore = calculateScore(opponentGrid, opponentGrid.map(findStacks));
 
   // Function that adds a dice to a row
   const addToUserRow = (row: number) => {
-    console.log("adding to row", row);
+    // console.log("adding to row", row);
     // If the user has not selected a dice, return
     if (userDice === undefined) return;
     // If the row is full, return
@@ -36,13 +33,17 @@ function App() {
       newGrid[row] = [...newGrid[row], userDice];
       return newGrid;
     });
+    // Remove all instances of this number in the corresponding opponent row
+    setOpponentGrid((prev) =>
+      prev.map((r, i) => r.filter((dice) => i !== row || dice !== userDice))
+    );
     // Reset the selected dice
     setUserDice(undefined);
     setTurn("opponent");
   };
 
   const addToOpponentRow = (row: number) => {
-    console.log("adding to row", row);
+    // console.log("adding to row", row);
     // If the user has not selected a dice, return
     if (oppDice === undefined) return;
     // If the row is full, return
@@ -53,15 +54,49 @@ function App() {
       newGrid[row] = [...newGrid[row], oppDice];
       return newGrid;
     });
+    // Remove all instances of this number in the corresponding user row
+
     // Reset the selected dice
     setOppDice(undefined);
     setTurn("user");
   };
 
-  // Set die when turn changes
+  const restartGame = () => {
+    setUserGrid([[], [], []]);
+    setOpponentGrid([[], [], []]);
+    setGameState("playing");
+    setTurn("user");
+  };
+
+  // Every turn
   useEffect(() => {
-    if (turn === "user") setUserDice(Math.floor(Math.random() * 6) + 1);
-    if (turn === "opponent") {
+    // console.log("TURN", turn);
+    const isGameOver =
+      userGrid.every((row) => row.length === 3) ||
+      opponentGrid.every((row) => row.length === 3);
+
+    if (isGameOver) {
+      // Find winner
+      const userScore = calculateScore(userGrid, userGrid.map(findStacks));
+      const oppScore = calculateScore(
+        opponentGrid,
+        opponentGrid.map(findStacks)
+      );
+
+      if (userScore > oppScore) {
+        console.log("user wins");
+        setWinner("user");
+      } else if (oppScore > userScore) {
+        setWinner("opponent");
+        console.log("opponent wins");
+      } else {
+        setWinner("draw");
+        console.log("draw");
+      }
+      setGameState("gameover");
+    } else if (turn === "user") {
+      setUserDice(Math.floor(Math.random() * 6) + 1);
+    } else if (turn === "opponent") {
       const newOppDice = Math.floor(Math.random() * 6) + 1;
       setOppDice(newOppDice);
       // After 1-2 seconds, add the dice to a random valid row
@@ -80,6 +115,12 @@ function App() {
             newGrid[randomRow] = [...newGrid[randomRow], newOppDice];
             return newGrid;
           });
+
+          setUserGrid((prev) =>
+            prev.map((row, i) =>
+              row.filter((dice) => i !== randomRow || dice !== newOppDice)
+            )
+          );
         }
         setOppDice(undefined);
         setTurn("user");
@@ -90,31 +131,42 @@ function App() {
   return (
     <div className={classes.app}>
       <div className={clsx(classes.opponent, classes.player)}>
-        <div className={classes.rollArea}>
-          {oppDice && <Dice value={oppDice} />}
+        <div>
+          <Dice value={oppDice ?? 0} />
         </div>
         <div>
           <div className={classes.name}>Opponent</div>
-          <div className={classes.score}>{22}</div>
+          <div className={classes.score}>{oppScore}</div>
         </div>
       </div>
-      <div className={classes.grid}>
-        <Grid
-          cells={opponentGrid}
-          scorePos="bottom"
-          addToRow={addToOpponentRow}
-        />
+
+      <div className={classes.game}>
+        <Grid opponent cells={opponentGrid} addToRow={addToOpponentRow} />
         <span className="vs">VS</span>
-        <Grid cells={userGrid} scorePos="top" addToRow={addToUserRow} />
+        <Grid cells={userGrid} addToRow={addToUserRow} />
       </div>
-      <div className={clsx(classes.player, classes.user)}>
+
+      <div className={clsx(classes.user, classes.player)}>
         <div>
+          <div className={classes.score}>{userScore}</div>
           <div className={classes.name}>Player</div>
-          <div className={classes.score}>{222}</div>
         </div>
-        <div className={classes.rollArea}>
-          {userDice && <Dice value={userDice} />}
-        </div>
+        {gameState === "gameover" ? (
+          <div>
+            <div>
+              {winner === "user"
+                ? "You Win!"
+                : winner === "opponent"
+                ? "Opponent Wins"
+                : "Draw..."}
+            </div>
+            <button onClick={restartGame}>Play Again</button>
+          </div>
+        ) : (
+          <div>
+            <Dice value={userDice ?? 0} />
+          </div>
+        )}
       </div>
 
       {/* <Player

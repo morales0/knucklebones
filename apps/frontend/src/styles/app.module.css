@@ -9,12 +9,6 @@
     "opponent"
     "game"
     "user";
-
-  /* display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-around;
-  padding: 1rem; */
-
 }
 
 .player {
@@ -22,10 +16,10 @@
   flex-flow: row nowrap;
   justify-content: space-around;
   align-items: center;
-  padding: .75rem;
+  padding: 0.75rem;
 
   & .name {
-    font-size: 2.25rem;
+    font-size: 2rem;
     font-weight: 600;
     text-transform: capitalize;
   }
@@ -33,113 +27,46 @@
   & .score {
     display: grid;
     place-items: center;
-    font-size: 1.2rem;
+    font-size: 2rem;
     text-transform: capitalize;
+    font-family: monospace;
   }
 
   & .rollArea {
     display: grid;
     place-items: center;
-    padding: .5rem;
+    padding: 1rem;
     border: 1px solid rgb(185, 185, 185);
     border-radius: 3px;
-    width: 8rem;
-    height: 90%;
-
-    /* background: linear-gradient(90deg, rgb(10, 74, 129) 0%, rgb(7, 63, 67) 100%); */
   }
 }
 
 .opponent {
   grid-area: opponent;
-  border-bottom: 1px solid rgb(185, 185, 185);
+  /* border-bottom: 1px solid rgb(185, 185, 185); */
+  background: linear-gradient(0deg, #1c1b22, #7234746e);
 }
 
 .user {
   grid-area: user;
-  border-top: 1px solid rgb(185, 185, 185);
-}
-
-.grid {
-  display: grid;
-  place-items: center;
-  overflow: auto;
-  padding: 1rem .5rem
-}
-
-/* flip players vertical on smaller screens */
-@media screen and (max-width: 1100px) {
-  .app {
-    flex-flow: column-reverse nowrap;
-  }
+  /* border-top: 1px solid rgb(185, 185, 185); */
+  /* Linear gradient from navy to indigo */
+  background: linear-gradient(180deg, #1c1b22, #3437746e);
 }
 
 .game {
-  flex: 5 1 auto;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: space-around;
-  gap: .5rem;
-  padding: .5rem;
+  display: grid;
+  place-items: center;
   overflow: auto;
+  padding: 1rem 0.5rem;
 }
 
 .vs {
-  padding: .5rem .75rem;
+  padding: 0.5rem 0.75rem;
   border: 1px solid rgb(185, 185, 185);
   border-radius: 3px;
   font-weight: 600;
   text-transform: capitalize;
-}
-
-/* flip to horizontal gaming on shorter screens */
-/* until we reach width 1100 */
-@media screen and (max-height: 775px) and (min-width: 1100px) {
-  .game {
-    flex-direction: row-reverse;
-  }
-
-  .game .grid {
-    transform: rotate(90deg);
-  }
-
-  .game .grid .cell,
-  .game .grid .score>div {
-    transform: rotate(-90deg);
-  }
-}
-
-/* flip to horizontal earlier on smaller screens */
-@media screen and (max-height: 900px) and (max-width: 1100px) and (min-width: 700px) {
-  .game {
-    flex-direction: row-reverse;
-  }
-
-  .game .grid {
-    transform: rotate(90deg);
-  }
-
-  .game .grid .cell,
-  .game .grid .score>div {
-    transform: rotate(-90deg);
-  }
-}
-
-/* flip to horizontal earlier on even smaller screens */
-@media screen and (max-height: 700px) and (max-width: 700px) and (min-width: 550px) {
-  .game {
-    flex-direction: row-reverse;
-  }
-
-  .game .grid {
-    transform: rotate(90deg);
-  }
-
-  .game .grid .cell,
-  .game .grid .score>div {
-    transform: rotate(-90deg);
-  }
 }
 
 /* Color Scheme */
